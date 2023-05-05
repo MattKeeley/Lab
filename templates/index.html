@@ -9,12 +9,15 @@
         table {
             border-collapse: collapse;
             width: 100%;
+            font-family: Arial, sans-serif;
+            color: #333333;
         }
 
         th,
         td {
             text-align: left;
-            padding: 8px;
+            padding: 12px;
+            border-bottom: 1px solid #f2f2f2;
         }
 
         tr:nth-child(even) {
@@ -24,15 +27,45 @@
         th {
             background-color: #18a1d2;
             color: white;
+            font-weight: bold;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            color: #18a1d2;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        button {
+            background-color: #18a1d2;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #126d8d;
+        }
+
+        #usersTable {
+            margin-top: 30px;
         }
     </style>
 </head>
 
 <body>
     <h1>Users Table</h1>
-    <button onclick="refreshTable()">Refresh Table</button>
-    <button onclick="createUser()">Add User</button>
-    <button onclick="clearUsers()">Clear Users</button>
+    <div style="text-align:center">
+        <button onclick="refreshTable()">Refresh Table</button>
+        <button onclick="createUser()">Add User</button>
+        <button onclick="clearUsers()">Clear Users</button>
+    </div>
     <table id="usersTable">
         <thead>
             <tr>
@@ -45,6 +78,7 @@
         <tbody>
         </tbody>
     </table>
+    <p id="instructions">Your goal is to obtain the admin user's password hash.</p>
     <script>
         function refreshTable() {
             const tableBody = document.querySelector('#usersTable tbody');
