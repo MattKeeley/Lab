@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Users Table</title>
+    <style>
+        /* Style the table */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        th {
+            background-color: #18a1d2;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Users Table</h1>
+    <button onclick="refreshTable()">Refresh Table</button>
+    <table id="usersTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Password</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <script>
+        function refreshTable() {
+            const tableBody = document.querySelector('#usersTable tbody');
+            tableBody.innerHTML = ''; // Clear previous data
+
+            const url = '/users?sort_col=name&sort_order=dec';
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(user => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+              <td>${user.id}</td>
+              <td>${user.name}</td>
+              <td>${user.email}</td>
+              <td>${user.password}</td>
+            `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error(error));
+        }
+
+        // Load table data on page load
+        refreshTable();
+    </script>
+</body>
+
+</html>
