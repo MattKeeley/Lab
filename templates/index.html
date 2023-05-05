@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Users Table</title>
+    <title>Admin - Users</title>
     <style>
         /* Style the table */
         table {
@@ -31,6 +31,8 @@
 <body>
     <h1>Users Table</h1>
     <button onclick="refreshTable()">Refresh Table</button>
+    <button onclick="createUser()">Add User</button>
+    <button onclick="clearUsers()">Clear Users</button>
     <table id="usersTable">
         <thead>
             <tr>
@@ -43,7 +45,6 @@
         <tbody>
         </tbody>
     </table>
-
     <script>
         function refreshTable() {
             const tableBody = document.querySelector('#usersTable tbody');
@@ -69,6 +70,40 @@
 
         // Load table data on page load
         refreshTable();
+    </script>
+    <script>
+        function createUser() {
+            const userData = {
+                name: 'New User',
+                email: 'newuser@example.com',
+                password: 'password123'
+            };
+
+            fetch('/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(userData)
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
+        }
+    </script>
+    <script>
+        function clearUsers() {
+
+            fetch('/users', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error(error));
+        }
     </script>
 </body>
 
