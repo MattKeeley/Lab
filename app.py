@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify, request
 import hashlib
+import json
 
 app = Flask(__name__)
 
@@ -40,6 +41,8 @@ def create_user():
     users.append(new_user)
     return jsonify(new_user)
 
+# Getting users for the table on index.html
+
 
 @app.route('/users')
 def get_users():
@@ -49,9 +52,13 @@ def get_users():
     sorted_users = sorted(
         users, key=lambda u: u[sort_col], reverse=(sort_order == 'dec'))
 
+    redacted_users = []
     for user in sorted_users:
-        user['password'] = 'REDACTED'
-    return jsonify(sorted_users)
+        redacted_user = user.copy()
+        redacted_user['password'] = 'REDACTED'
+        redacted_users.append(redacted_user)
+
+    return jsonify(redacted_users)
 
 
 if __name__ == '__main__':
