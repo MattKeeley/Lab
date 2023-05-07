@@ -64,6 +64,9 @@
     <div style="text-align:center">
         <button onclick="createUser()">Add User</button>
         <button onclick="clearUsers()">Clear Users</button>
+        <button onclick="window.location.href='/login';">
+            Login Page
+        </button>
     </div>
     <table id="usersTable">
         <thead>
@@ -77,7 +80,14 @@
         <tbody>
         </tbody>
     </table>
-    <p id="instructions">Your goal is to obtain the admin user's password hash.</p>
+    <div style="margin-top: 30px; text-align: center;">
+        <p><strong>Your goal is to obtain the admin user's password hash.</strong></p>
+        <p>This web application has rate limits in place:</p>
+        <ul style="list-style-type: none; padding: 0;">
+            <li><strong>The index.html page limit:</strong> 200 requests per hour.</li>
+            <li><strong>The login.html page limit:</strong> 20 requests per hour.</li>
+        </ul>
+    </div>
     <script>
         function refreshTable() {
             const tableBody = document.querySelector('#usersTable tbody');
