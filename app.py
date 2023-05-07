@@ -8,18 +8,19 @@ from bson import json_util
 
 app = Flask(__name__)
 limiter = Limiter(app=app, key_func=get_remote_address)
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb://mongodb:27017/')
 db = client['challenge']
 collection = db['users']
 
 admin_hash = ''
 if collection.count_documents({}) == 0:
     print('Database is empty')
-    with open('rockyou.txt', 'r', encoding='latin-1') as file:
+    with open('rockyou.txt', 'r', encoding='utf-8') as file:
         passwords = file.readlines()
 
     if passwords:
         random_password = random.choice(passwords).strip()
+        print(f'SETTING ADMIN PASSWORD TO {random_password}')
         admin_hash = hashlib.sha256(random_password.encode()).hexdigest()
         collection.insert_one(
             {'id': 1, 'name': 'admin', 'email': 'mkeeley@prodefense.io', 'password_hash': admin_hash})
@@ -84,10 +85,10 @@ def get_users():
 @app.route('/login', methods=['POST'])
 @limiter.limit("20/hour")
 def login_auth():
-    username = request.form.get('username')
-    password = request.form.get('password')
-    user = collection.find_one({'user': username})
-
+    user = request.get_json()
+    username = user['username']
+    password = user['password']
+    user = collection.find_one({'name': username})
     if user and hashlib.sha256(password.encode()).hexdigest() == user['password_hash']:
         print('Login successful')
         return 'Login successful', 200
@@ -97,4 +98,4 @@ def login_auth():
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(host='0.0.0.0', debug=False)
