@@ -14,7 +14,7 @@ Before proceeding with the installation, ensure that you have the following depe
 - Docker Compose: [Install Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Blog Post
-My blog post with a detailed explaniation on how to solve this lab can be found [here.](https://medium.com/@nightbane/sorting-your-way-to-stolen-passwords-43ff5cfeeabd)
+My blog post with a detailed explaniation on how to solve this lab can be found [here.](https://blog.prodefense.io/sorting-your-way-to-stolen-passwords-43ff5cfeeabd)
 
 ## Installation
 To set up the ProDefense Lab, follow these steps:
