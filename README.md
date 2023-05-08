@@ -23,7 +23,7 @@ To set up the ProDefense Lab, follow these steps:
 
 
 ```shell
-git clone https://github.com/ProDefense/Lab.git
+git clone https://github.com/MattKeeley/Lab
 ```
 
 2. Navigate to the project directory:
