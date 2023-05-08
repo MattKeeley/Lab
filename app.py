@@ -74,7 +74,7 @@ def get_users():
     redacted_users = []
     for user in sorted_users:
         redacted_user = user.copy()
-        redacted_user['password'] = 'REDACTED'
+        redacted_user['password_hash'] = 'REDACTED'
         # Convert ObjectId to string
         redacted_user['_id'] = str(redacted_user['_id'])
         redacted_users.append(redacted_user)
