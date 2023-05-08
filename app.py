@@ -44,7 +44,7 @@ def login():
 
 
 @app.route('/users', methods=['DELETE'])
-@limiter.limit("200/hour")
+@limiter.limit("200/10minutes")
 def clear_users():
     collection.delete_many({})
     collection.insert_one(
@@ -53,7 +53,7 @@ def clear_users():
 
 
 @app.route('/users', methods=['POST'])
-@limiter.limit("200/hour")
+@limiter.limit("200/10minutes")
 def create_user():
     new_user = request.get_json()
     collection.insert_one(
@@ -62,7 +62,7 @@ def create_user():
 
 
 @app.route('/users')
-@limiter.limit("200/hour")
+@limiter.limit("200/10minutes")
 def get_users():
     sort_col = request.args.get('sort_col', default='id')
     sort_order = request.args.get('sort_order', default='asc')
@@ -83,7 +83,7 @@ def get_users():
 
 
 @app.route('/login', methods=['POST'])
-@limiter.limit("20/hour")
+@limiter.limit("20/10minutes")
 def login_auth():
     user = request.get_json()
     username = user['username']
